@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card } from "./card.jsx";
+import Card from "./card.jsx";
 
 function calculateLegSize(squat, extension, deadlift) {
     return Math.min(squat + extension + deadlift, 2500);
@@ -32,26 +32,16 @@ function Legs({ setPage }) {
                     amount={squatAmount}
                     setAmount={setSquatAmount}
                 />
-                <div className="card">
-                    <div className="title">Extensions</div>
-                    <div className="exercise">{extensionsAmount}</div>
-                    <input
-                        type="number"
-                        onChange={(event) => {
-                            setExtensionAmount(Number(event.target.value));
-                        }}
-                    />
-                </div>
-                <div className="card">
-                    <div className="title">Squats</div>
-                    <div className="squat">0</div>
-                    <input
-                        type="number"
-                        onChange={(event) => {
-                            setSquatAmount(Number(event.target.value));
-                        }}
-                    />
-                </div>
+                <Card
+                    title="Extensions"
+                    amount={extensionsAmount}
+                    setAmount={setExtensionAmount}
+                />
+                <Card
+                    title="Deadlift"
+                    amount={deadliftAmount}
+                    setAmount={setDeadliftAmount}
+                />
             </div>
             <div className="leg">
                 <img

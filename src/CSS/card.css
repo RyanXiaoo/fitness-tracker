@@ -14,6 +14,7 @@
     padding-top: 100px;
     position: relative;
 }
+
 .leg-image {
     position: absolute;
 }
@@ -21,12 +22,10 @@
 .container2 {
     display: flex;
     gap: 50px;
-    padding: 0px 50px;
     flex-direction: row;
     align-items: center;
-    background-color: white;
     border-style: solid;
-    border-color: blue;
+    border-width: 1px;
     border-radius: 30px;
     height: 500px;
     width: 1000px;
