@@ -3,6 +3,7 @@ import "./CSS/App.css";
 import "./CSS/navbar.css";
 import "./CSS/home.css";
 import "./CSS/card.css";
+import Legs from "./components/leg";
 import { useState, useEffect } from "react";
 
 const App = () => {
@@ -16,7 +17,12 @@ const App = () => {
         }
     };
 
-    return <div className="background">{renderPage()}</div>;
+    return (
+        <div className="background">
+            <Nav setPage={setPage} />
+            {renderPage()}
+        </div>
+    );
 };
 
 function Nav({ setPage }) {
@@ -42,7 +48,6 @@ function Nav({ setPage }) {
 function Home({ setPage }) {
     return (
         <div>
-            <Nav setPage={setPage} />
             <div className="body1">
                 <div className="home-text">TRACK YOUR PROGRESS HERE</div>
                 <img
@@ -50,25 +55,6 @@ function Home({ setPage }) {
                     alt="Buff Guy"
                     className="animation"
                 />
-            </div>
-        </div>
-    );
-}
-
-function Legs({ setPage }) {
-    return (
-        <div>
-            <Nav setPage={setPage} />
-            <div className="container1">
-                <div className="leg1">
-                    <img src="/images/leg1.png" alt="" />
-                </div>
-                <div className="container2">
-                    <div className="card"></div>
-                </div>
-                <div className="leg2">
-                    <img src="/images/leg2.png" alt="" />
-                </div>
             </div>
         </div>
     );
