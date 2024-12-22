@@ -38,11 +38,41 @@
     background-color: lightgray;
     border-radius: 20px;
     height: 400px;
-    flex-grow: 1;
+    width: 300px;
 }
 
 .title {
     display: flex;
     font-size: 40px;
     padding: 20px 0px;
+}
+
+.exercise {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 50px;
+    padding-bottom: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Remove the spin buttons */
+    margin: 0; /* Prevent unwanted margin */
+}
+
+.change-amount {
+    font-size: 28px;
+    height: 30px;
+    width: 150px;
+}
+
+.submit-container {
+    padding: 30px;
+}
+
+.submit {
+    padding: 10px;
+    height: 50px;
+    font-size: 28px;
 }

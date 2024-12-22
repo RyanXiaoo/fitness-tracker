@@ -4,7 +4,9 @@ import "./CSS/navbar.css";
 import "./CSS/home.css";
 import "./CSS/card.css";
 import Legs from "./components/leg";
+import Chest from "./components/chest";
 import { useState, useEffect } from "react";
+import { Router, Routes, Route } from "react-router-dom";
 
 const App = () => {
     const [page, setPage] = useState("home");
@@ -14,6 +16,8 @@ const App = () => {
             return <Home setPage={setPage} />;
         } else if (page === "legs") {
             return <Legs setPage={setPage} />;
+        } else if (page === "chest") {
+            return <Chest setPage={setPage} />;
         }
     };
 
@@ -37,9 +41,11 @@ function Nav({ setPage }) {
                 <button onClick={() => setPage("legs")} className="icon">
                     LEGS
                 </button>
-                <button className="icon">CHEST</button>
-                <button className="icon">BACK</button>
-                <button className="icon">OTHER</button>
+                <button onClick={() => setPage("chest")} className="icon">
+                    CHEST
+                </button>
+                <button> ADD PAGE</button>
+                <button className="icon">ADD EXERCISE</button>
             </div>
         </div>
     );
