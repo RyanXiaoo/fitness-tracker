@@ -21,7 +21,6 @@ const Card = (props) => {
                         setInputValue("");
                     }}
                 >
-                    {" "}
                     SUBMIT
                 </button>
             </div>

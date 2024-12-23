@@ -5,7 +5,7 @@ function calculateLegSize(squat, extension, deadlift) {
     return Math.min(squat + extension + deadlift, 2500);
 }
 
-function Legs({ setPage }) {
+function Legs({}) {
     const [squatAmount, setSquatAmount] = useState(0);
     const [extensionsAmount, setExtensionAmount] = useState(0);
     const [deadliftAmount, setDeadliftAmount] = useState(0);

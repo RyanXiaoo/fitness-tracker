@@ -5,7 +5,7 @@ function calculateChestSize(bench, clap, inclineBench) {
     return Math.min(bench + clap + inclineBench, 2500);
 }
 
-function Chest({ setPage }) {
+function Chest() {
     const [benchAmount, setBenchAmount] = useState(0);
     const [clapAmount, setClapAmount] = useState(0);
     const [inclineBenchAmount, setInclineBenchAmount] = useState(0);

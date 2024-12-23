@@ -1,57 +1,119 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CSS/App.css";
 import "./CSS/navbar.css";
 import "./CSS/home.css";
 import "./CSS/card.css";
+import "./CSS/newPage.css";
+import "./CSS/page.css";
+import "./CSS/addcard.css";
 import Legs from "./components/leg";
 import Chest from "./components/chest";
-import { useState, useEffect } from "react";
-import { Router, Routes, Route } from "react-router-dom";
+import NewPage from "./components/newPage";
+import Page from "./components/page";
+import AddCard from "./components/addcard";
+import { Link, Router, Routes, Route, BrowserRouter } from "react-router-dom";
 
 const App = () => {
-    const [page, setPage] = useState("home");
+    var [pages, setPages] = useState([
+        {
+            title: "Legs",
+            link: "/legs",
+            cards: [
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+            ],
+        },
+        {
+            title: "Legs",
+            link: "/legs",
+            cards: [
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+            ],
+        },
+        {
+            title: "Legs",
+            link: "/legs",
+            cards: [
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+                { title: "extensions", amount: 10000 },
+            ],
+        },
+    ]);
 
-    const renderPage = () => {
-        if (page === "home") {
-            return <Home setPage={setPage} />;
-        } else if (page === "legs") {
-            return <Legs setPage={setPage} />;
-        } else if (page === "chest") {
-            return <Chest setPage={setPage} />;
-        }
-    };
+    function changeAmount(pageIndex, cardIndex, newAmount) {
+        setPages((prevPages) => {
+            // Create a deep copy of the pages array
+            const updatedPages = [...prevPages];
+            // Update the specific card's amount
+            updatedPages[pageIndex].cards[cardIndex].amount = newAmount;
+            return updatedPages;
+        });
+    }
+
+    function addCard(pageIndex, title, amount) {
+        setPages((prevPages) => {
+            const newPage = { title: title, amount: amount };
+            const copyPages = [...prevPages];
+            copyPages[pageIndex].cards.push(newPage);
+            return copyPages;
+        });
+    }
 
     return (
         <div className="background">
-            <Nav setPage={setPage} />
-            {renderPage()}
+            <BrowserRouter>
+                <Nav pages={pages} layout="not" />
+                <Routes>
+                    <Route index element={<Home />} />
+                    {pages.map((page, pageIndex) => (
+                        <Route
+                            key={pageIndex}
+                            path={page.link}
+                            element={
+                                <Page
+                                    cardsinfo={page.cards}
+                                    pageIndex={pageIndex}
+                                    changeAmount={changeAmount}
+                                    addCard={addCard}
+                                />
+                            }
+                        />
+                    ))}
+                    <Route path="/new_page" element={<NewPage />}></Route>
+                </Routes>
+                <Nav pages={pages} layout="fixed" />
+            </BrowserRouter>
         </div>
     );
 };
 
-function Nav({ setPage }) {
+function Nav(props) {
     return (
-        <div className="navbar">
+        <div className={props.layout === "not" ? "navbar1" : "navbar"}>
             <div className="leftnav">
-                <button className="icon" onClick={() => setPage("home")}>
+                <Link to="/" className="icon">
                     HOME
-                </button>
+                </Link>
             </div>
             <div className="rightnav">
-                <button onClick={() => setPage("legs")} className="icon">
-                    LEGS
-                </button>
-                <button onClick={() => setPage("chest")} className="icon">
-                    CHEST
-                </button>
-                <button> ADD PAGE</button>
-                <button className="icon">ADD EXERCISE</button>
+                {props.pages.map((page, index) => (
+                    <Link key={index} to={page.link} className="icon">
+                        {page.title}
+                    </Link>
+                ))}
+                <Link to="/new_page" className="icon">
+                    NEW PAGE
+                </Link>
             </div>
         </div>
     );
 }
 
-function Home({ setPage }) {
+function Home() {
     return (
         <div>
             <div className="body1">
