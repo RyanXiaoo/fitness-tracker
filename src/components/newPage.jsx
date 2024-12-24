@@ -1,14 +1,19 @@
 import { useState } from "react";
 
-const make_new_page = (event) => {};
-
 const NewPage = (props) => {
-    var [page, setPage] = useState();
-    var [card, setCard] = useState();
+    let [pageTitle, setPageTitle] = useState("");
+    let [exerciseTitle, setExerciseTitle] = useState("");
+    let [exerciseAmount, setExerciseAmount] = useState(0);
 
     return (
         <div className="centerForm">
-            <form onSubmit={make_new_page} className="form">
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                    props.makePage(pageTitle, exerciseTitle, exerciseAmount);
+                }}
+                className="form"
+            >
                 <label className="label_form" for="title">
                     What is the title of your new page?
                 </label>
@@ -17,6 +22,9 @@ const NewPage = (props) => {
                     type="text"
                     id="title"
                     name="title"
+                    onChange={(event) => {
+                        setPageTitle(event.target.value);
+                    }}
                 />
                 <label className="label_form" for="exercise1">
                     What exercise would you like to store
@@ -26,6 +34,19 @@ const NewPage = (props) => {
                     type="text"
                     id="ex1"
                     name="exercise"
+                    onChange={(event) => {
+                        setExerciseTitle(event.target.value);
+                    }}
+                />
+                <label className="label_form" for="amount1">
+                    How much weight is lifted?
+                </label>
+                <input
+                    className="inputBox"
+                    type="number"
+                    id="amount1"
+                    name="amount1"
+                    onChange={(event) => setExerciseAmount(event.target.value)}
                 />
                 <button type="submit">Submit</button>
             </form>

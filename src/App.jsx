@@ -56,9 +56,28 @@ const App = () => {
 
     function addCard(pageIndex, title, amount) {
         setPages((prevPages) => {
-            const newPage = { title: title, amount: amount };
-            const copyPages = [...prevPages];
-            copyPages[pageIndex].cards.push(newPage);
+            const copyPages = prevPages.map((page, index) => {
+                if (index === pageIndex) {
+                    return {
+                        ...page,
+                        cards: [...page.cards, { title, amount }],
+                    };
+                }
+                return page;
+            });
+            return copyPages;
+        });
+    }
+
+    function makePage(pageTitle, exerciseTitle, exerciseAmount) {
+        setPages((prevPages) => {
+            const newPage = {
+                title: pageTitle,
+                link: "/" + pageTitle,
+                cards: [{ title: exerciseTitle, amount: exerciseAmount }],
+            };
+            let copyPages = [...prevPages];
+            copyPages.push(newPage);
             return copyPages;
         });
     }
@@ -83,7 +102,10 @@ const App = () => {
                             }
                         />
                     ))}
-                    <Route path="/new_page" element={<NewPage />}></Route>
+                    <Route
+                        path="/new_page"
+                        element={<NewPage makePage={makePage} />}
+                    ></Route>
                 </Routes>
                 <Nav pages={pages} layout="fixed" />
             </BrowserRouter>

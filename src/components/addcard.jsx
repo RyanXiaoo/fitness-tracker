@@ -31,6 +31,7 @@ const AddCard = (props) => {
                 value={cardAmount}
                 onChange={(event) => setCardAmount(event.target.value)}
             />
+
             <button type="submit">Submit</button>
         </form>
     );
