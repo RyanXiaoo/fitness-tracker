@@ -3,10 +3,14 @@ import { useState } from "react";
 const Card = (props) => {
     const [inputValue, setInputValue] = useState("");
 
+    const [status, setStatus] = useState(false);
+    const [check, setCheck] = useState(false);
+    const [load, setLoad] = useState(false);
+
     return (
         <div className="card">
             <div className="title">{props.title}</div>
-            <div className="exercise">{props.amount} lbs</div>
+            <div className="exercise">Amount lifted: {props.amount} lbs</div>
             <input
                 type="number"
                 className="change-amount"
@@ -17,12 +21,44 @@ const Card = (props) => {
                 <button
                     className="submit"
                     onClick={() => {
-                        props.setAmount(Number(inputValue));
-                        setInputValue("");
+                        setStatus(true);
+                        setTimeout(() => {
+                            setCheck(true);
+                            setTimeout(() => {
+                                setCheck(false);
+                                setStatus(false);
+                                props.setAmount(Number(inputValue));
+                                setInputValue("");
+                            }, 2000);
+                        }, 3000);
                     }}
                 >
                     SUBMIT
                 </button>
+
+                <div
+                    className={
+                        "loader " + (status ? "loader-active" : "loader-hide")
+                    }
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="#1c89ff"
+                        className={
+                            "checkmark " +
+                            (check ? "checkmark" : "checkmark-hide")
+                        }
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                        />
+                    </svg>
+                </div>
             </div>
         </div>
     );

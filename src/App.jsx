@@ -16,30 +16,12 @@ import { Link, Router, Routes, Route, BrowserRouter } from "react-router-dom";
 const App = () => {
     var [pages, setPages] = useState([
         {
-            title: "Legs",
+            title: "LEGS",
             link: "/legs",
             cards: [
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
-            ],
-        },
-        {
-            title: "Legs",
-            link: "/legs",
-            cards: [
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
-            ],
-        },
-        {
-            title: "Legs",
-            link: "/legs",
-            cards: [
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
-                { title: "extensions", amount: 10000 },
+                { title: "SQUAT", amount: 0 },
+                { title: "EXTENSIONS", amount: 0 },
+                { title: "DEADLIFT  ", amount: 0 },
             ],
         },
     ]);
@@ -55,6 +37,16 @@ const App = () => {
     }
 
     function addCard(pageIndex, title, amount) {
+        for (let i = 0; i < pages[pageIndex].cards.length; i++) {
+            if (
+                pages[pageIndex].cards[i].title.toLowerCase() ===
+                title.toLowerCase()
+            ) {
+                alert("Duplicate exercise cannot be created");
+                return;
+            }
+        }
+
         setPages((prevPages) => {
             const copyPages = prevPages.map((page, index) => {
                 if (index === pageIndex) {
@@ -70,9 +62,16 @@ const App = () => {
     }
 
     function makePage(pageTitle, exerciseTitle, exerciseAmount) {
+        for (let i = 0; i < pages.length; i++) {
+            if (pages[i].title.toLowerCase() === pageTitle.toLowerCase()) {
+                alert("Page already exists");
+                return;
+            }
+        }
+
         setPages((prevPages) => {
             const newPage = {
-                title: pageTitle,
+                title: pageTitle.toUpperCase(),
                 link: "/" + pageTitle,
                 cards: [{ title: exerciseTitle, amount: exerciseAmount }],
             };

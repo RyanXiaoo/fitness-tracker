@@ -10,7 +10,11 @@ const NewPage = (props) => {
             <form
                 onSubmit={(event) => {
                     event.preventDefault();
-                    props.makePage(pageTitle, exerciseTitle, exerciseAmount);
+                    props.makePage(
+                        pageTitle,
+                        exerciseTitle.toUpperCase(),
+                        exerciseAmount.toUpperCase()
+                    );
                 }}
                 className="form"
             >

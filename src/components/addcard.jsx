@@ -1,39 +1,73 @@
 import { useState } from "react";
-import Card from "./card";
 
 const AddCard = (props) => {
-    var [cardTitle, setCardTitle] = useState("");
-    var [cardAmount, setCardAmount] = useState(0);
+    const [cardTitle, setCardTitle] = useState("");
+    const [cardAmount, setCardAmount] = useState(0);
 
     console.log(typeof props.addcard);
 
-    return (
-        <form
-            className="addcard"
-            onSubmit={(event) => {
-                event.preventDefault();
-                props.addcard(props.pageIndex, cardTitle, cardAmount);
-            }}
-        >
-            <label htmlFor="title">Exercise Name</label>
-            <input
-                type="text"
-                id="title"
-                name="title"
-                value={cardTitle}
-                onChange={(event) => setCardTitle(event.target.value)}
-            />
-            <label htmlFor="amount">Enter amount lifted</label>
-            <input
-                type="number"
-                id="amount"
-                name="amount"
-                value={cardAmount}
-                onChange={(event) => setCardAmount(event.target.value)}
-            />
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        props.addcard(
+            props.pageIndex,
+            cardTitle.toUpperCase(),
+            Number(cardAmount) // Ensure it's a number
+        );
+        // Optionally, reset the form fields after submission
+        setCardTitle("");
+        setCardAmount(0);
+    };
 
-            <button type="submit">Submit</button>
-        </form>
+    return (
+        <div className="addcard">
+            <form onSubmit={handleSubmit}>
+                <div className="flip-card-inner">
+                    <div className="flip-front-card">
+                        <h2 className="addCardMainTitle">ADD</h2>
+                        <h2 className="addCardMainTitle">A</h2>
+                        <h2 className="addCardMainTitle">NEW</h2>
+                        <h2 className="addCardMainTitle">EXERCISE</h2>
+                    </div>
+
+                    <div className="flip-back-card">
+                        <label className="addCardTitle" htmlFor="title">
+                            Enter exercise name:
+                        </label>
+                        <input
+                            className="inputField"
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={cardTitle}
+                            onChange={(event) =>
+                                setCardTitle(event.target.value)
+                            }
+                            required
+                        />
+                        <label className="addCardTitle" htmlFor="amount">
+                            Enter amount lifted
+                        </label>
+                        <input
+                            className="inputField"
+                            type="number"
+                            id="amount"
+                            name="amount"
+                            value={cardAmount}
+                            onChange={(event) =>
+                                setCardAmount(+event.target.value)
+                            } // Convert to number
+                            required
+                            min="0"
+                        />
+
+                        {/* Corrected className */}
+                        <button className="submitNew" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     );
 };
 
